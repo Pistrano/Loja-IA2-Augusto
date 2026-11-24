@@ -42,7 +42,7 @@ npm start
 | PUT | /produto/update/:id | Atualiza produto (form-data: nome, preco, imagem opcional) |
 | DELETE | /produto/delete/:id | Remove produto |
 
-A imagem aceita apenas .jpeg/.jpg e .png (até 2MB). O preço não aceita valores negativos.
+A imagem aceita apenas .jpeg e .png (até 2MB). O preço não aceita valores negativos.
 
 ### Carrinho
 | Método | Rota | Descrição |
