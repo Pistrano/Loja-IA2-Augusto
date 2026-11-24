@@ -5,7 +5,7 @@ import { formatarPreco, mensagemErro, urlImagem } from "../../util/api";
 
 const produtoVazio = { nome: "", preco: "" };
 const tiposImagem = ["image/jpeg", "image/png"];
-const extensoesImagem = [".jpeg", ".jpg", ".png"];
+const extensoesImagem = [".jpeg", ".png"];
 
 const Produto = () => {
     const [produto, setProduto] = useState(produtoVazio);
@@ -43,18 +43,29 @@ const Produto = () => {
             alert("O campo nome é obrigatório");
             return false;
         }
+
         if (produto.preco === "") {
             alert("O campo preço é obrigatório");
             return false;
         }
-        if (Number(produto.preco) < 0) {
+
+        const valorPreco = Number(produto.preco);
+
+        if (!Number.isFinite(valorPreco)) {
+            alert("Informe um preço válido");
+            return false;
+        }
+
+        if (valorPreco < 0) {
             alert("O preço não pode ser negativo");
             return false;
         }
+
         if (imagem && !imagemValida(imagem)) {
             alert("A imagem deve ser .jpeg ou .png");
             return false;
         }
+
         return true;
     }
 
@@ -62,7 +73,6 @@ const Produto = () => {
         setProduto({ ...produto, [e.target.name]: e.target.value });
     }
 
-    // bloqueia o sinal de menos e a notação científica no campo de preço
     function bloquearNegativo(e) {
         if (["-", "+", "e", "E"].includes(e.key)) {
             e.preventDefault();
@@ -170,7 +180,7 @@ const Produto = () => {
                     onChange={handleImagem}
                     type="file"
                     name="imagem"
-                    accept=".jpeg,.jpg,.png,image/jpeg,image/png"
+                    accept=".jpeg,.png,image/jpeg,image/png"
                     ref={inputImagem}
                 />
 

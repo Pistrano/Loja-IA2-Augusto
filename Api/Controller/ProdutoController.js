@@ -5,15 +5,21 @@ function validarProduto(nome, preco) {
     if (!nome || !nome.trim()) {
         return 'O nome é obrigatório!';
     }
+
     if (preco === undefined || preco === null || preco === '') {
         return 'O preço é obrigatório!';
     }
-    if (isNaN(Number(preco))) {
-        return 'O preço deve ser um número!';
+
+    const valor = Number(preco);
+
+    if (!Number.isFinite(valor)) {
+        return 'O preço deve ser um número válido!';
     }
-    if (Number(preco) < 0) {
+
+    if (valor < 0) {
         return 'O preço não pode ser negativo!';
     }
+
     return null;
 }
 
